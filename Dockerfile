@@ -41,8 +41,8 @@ WORKDIR /app
 COPY --from=builder /app .
 
 # Expose the port the app runs on (4173 for Vite)
-EXPOSE 5173
+EXPOSE 3000
 
 # Set the DATABASE_URL environment variable for the runtime
 # Start the SSR Svelte app (with vite in preview mode)
-CMD ["npm","run", "preview","--", "--host", "0.0.0.0"]
+CMD ["node","build"]
