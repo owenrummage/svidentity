@@ -3,6 +3,9 @@ FROM node:18-alpine AS builder
 
 # Define the build argument for DATABASE_URL
 ARG DATABASE_URL
+ARG ORIGIN
+
+ENV ORIGIN=${ORIGIN}
 
 # Set the working directory
 WORKDIR /app
