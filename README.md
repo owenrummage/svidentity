@@ -126,12 +126,12 @@ export const handle: Handle = async ({ event, resolve }) => {
 import { getUser } from '$lib/auth';
 import type { LayoutServerLoad } from './$types';
 
-export const load: LayoutServerLoad = async ({ locals, cookies }) => {
+export const load: LayoutServerLoad = async ({ locals }) => {
 	// Access the user data set in hooks.server.ts
-	const data = await getUser(cookies.get('session_id'));
+	const user = locals.user;
 
 	return {
-		user: data.user
+		user
 	};
 };
 
@@ -142,7 +142,17 @@ With these three items you can auto-autnticate every single page. Please keep in
 
 ```ts
 // src/routes/+layout.server.ts
+import { getUser } from '$lib/auth';
+import type { LayoutServerLoad } from './$types';
 
+export const load: LayoutServerLoad = async ({ locals, cookies }) => {
+	// Access the user data set in hooks.server.ts
+	const data = await getUser(cookies.get('session_id'));
+
+	return {
+		user: data.user
+	};
+};
 ```
 ---
 
