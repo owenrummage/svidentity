@@ -50,35 +50,30 @@
 	}
 </script>
 
-<Card.Root class="w-[350px]">
-	<form on:submit|preventDefault={submitForm}>
-		<Card.Header>
-			<Card.Title>Register Account</Card.Title>
-			<Card.Description>Please fill in the details below to create an account.</Card.Description>
-		</Card.Header>
-		<Card.Content>
-			{#if successMessage}
-				<p class="text-green-500">{successMessage}</p>
-			{:else if errorMessage}
-				<p class="text-red-500">{errorMessage}</p>
-			{/if}
-			<Label for="email">Email:</Label>
-			<Input id="email" type="email" bind:value={email} required />
+<form class=" gap-4 flex flex-col h-full" on:submit|preventDefault={submitForm}>
+	<div class="mb-4">
+		<h1 class="text-2xl font-bold">New here?</h1>
+		<h3 class="text-sm">Please fill in the details below to create an account.</h3>
+	</div>
+	<!-- Display success or error message -->
+	{#if successMessage}
+		<p class="text-green-500">{successMessage}</p>
+	{:else if errorMessage}
+		<p class="text-red-500">{errorMessage}</p>
+	{/if}
+	<Label for="email">Email:</Label>
+	<Input id="email" type="email" bind:value={email} required />
 
-			<Label for="password">Password:</Label>
-			<Input id="password" type="password" bind:value={password} required />
+	<Label for="password">Password:</Label>
+	<Input id="password" type="password" bind:value={password} required />
 
-			<Label for="firstName">First Name:</Label>
-			<Input id="firstName" type="text" bind:value={firstName} />
+	<Label for="firstName">First Name:</Label>
+	<Input id="firstName" type="text" bind:value={firstName} />
 
-			<Label for="lastName">Last Name:</Label>
-			<Input id="lastName" type="text" bind:value={lastName} />
-		</Card.Content>
-		<Card.Footer class="flex justify-between">
-			<Button variant="outline" on:click={() => goto(`/login?redirect=${redirectUrl}`)}
-				>Login</Button
-			>
-			<Button type="submit">Register</Button>
-		</Card.Footer>
-	</form>
-</Card.Root>
+	<Label for="lastName">Last Name:</Label>
+	<Input id="lastName" type="text" bind:value={lastName} />
+
+	<!-- Submit button within the form -->
+	<Button class="mt-auto" type="submit">Register</Button>
+	<Button variant="outline" on:click={() => goto(`/login?redirect=${redirectUrl}`)}>Login</Button>
+</form>
