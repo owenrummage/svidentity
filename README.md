@@ -65,6 +65,86 @@ To customize svidentity, modify the Svelte components located in the `src/routes
 - `src/routes/reigster/+page.svelte`: Displays user information.
 
 ---
+## How to use
+The usage is very simple, all you need are three files.
+
+
+```ts
+// src/lib/auth.ts
+import { redirect } from '@sveltejs/kit';
+
+const AUTH_SERVER = 'http://localhost:5173';
+const APP_DOMAIN = 'http://localhost:5174';
+
+export async function getUser(sessionToken: string | undefined) {
+	console.log(sessionToken);
+	if (sessionToken) {
+		try {
+			// Call the API to get user information
+			const response = await fetch(`${AUTH_SERVER}/api/me`, {
+				headers: {
+					Cookie: `session_id=${sessionToken}`
+				}
+			});
+
+			// If the response is not OK, redirect to AUTH_URL
+			if (!response.ok) {
+				throw new Error(`Fetch error: ` + response.status);
+			}
+
+			// Parse and return the user data
+			const user = await response.json();
+			return {
+				user
+			};
+		} catch (error) {
+			// On any error, redirect to the AUTH_URL
+			throw error;
+		}
+	} else {
+		redirect(302, `${AUTH_SERVER}/login?redirect=${APP_DOMAIN}/callback`);
+	}
+}
+```
+
+```ts
+// src/hooks.server.ts
+import { getUser } from '$lib/auth';
+import type { Handle } from '@sveltejs/kit';
+
+export const handle: Handle = async ({ event, resolve }) => {
+	let data = await getUser(event.cookies.get('session_id'));
+
+	event.locals.user = data.user;
+	const response = await resolve(event);
+	return response;
+};
+```
+
+```ts
+// src/routes/+layout.server.ts
+import { getUser } from '$lib/auth';
+import type { LayoutServerLoad } from './$types';
+
+export const load: LayoutServerLoad = async ({ locals, cookies }) => {
+	// Access the user data set in hooks.server.ts
+	const data = await getUser(cookies.get('session_id'));
+
+	return {
+		user: data.user
+	};
+};
+
+```
+
+
+With these three items you can auto-autnticate every single page. Please keep in mind this requires authentication across the entire app, and this might need to be changed for your implementation. You can use an easy per-page or per-folder way using the code below in the ``+layout.server.ts`` file
+
+```ts
+// src/routes/+layout.server.ts
+
+```
+---
 
 ## Contributing
 
