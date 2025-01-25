@@ -83,4 +83,8 @@
 	.background {
 		@apply col-span-3;
 	}
+
+	a {
+		@apply text-purple-800 hover:text-purple-300 dark:text-purple-500 dark:hover:text-purple-400;
+	}
 }

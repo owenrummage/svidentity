@@ -1,2 +1,5 @@
-<h1>Welcome to SvelteKit</h1>
-<p>Visit <a href="https://svelte.dev/docs/kit">svelte.dev/docs/kit</a> to read the documentation</p>
+<h1 class="text-2xl font-bold">SVIdentity</h1>
+<h3 class="text-sm mt-2">
+	The fully <a href="https://github.com/owenrummage/svidentity">open-source</a> simple as f**k identity
+	server with no frills.
+</h3>
