@@ -31,6 +31,11 @@
 | ::::::::::::::[]  ::: |
 |   -----------     ::: |
 `-----------------------'</pre>
+			<div class="mt-4 flex flex-row justify-center w-full">
+				<p class="text-xs">
+					Powered by <a href="https://github.com/owenrummage/svidentity">SVIdentity</a>.
+				</p>
+			</div>
 		</div>
 		<div class="content">
 			{@render children()}
