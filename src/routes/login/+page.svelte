@@ -27,7 +27,7 @@
 			if (response.ok) {
 				successMessage = 'Login successful! Redirecting...';
 				setTimeout(() => {
-					location.reload(); // Reload the page to reflect the logged-in state
+					window.location.href = redirectUrl;
 				}, 2000); // Add slight delay to show success message
 			} else {
 				errorMessage = 'Login failed: Invalid email or password.';
