@@ -27,7 +27,7 @@
 			if (response.ok) {
 				successMessage = 'Login successful! Redirecting...';
 				setTimeout(() => {
-					window.reload();
+					window.location.reload();
 				}, 2000); // Add slight delay to show success message
 			} else {
 				errorMessage = 'Login failed: Invalid email or password.';
