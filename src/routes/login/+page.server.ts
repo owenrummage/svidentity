@@ -46,7 +46,7 @@ export const load: ServerLoad = async ({ request, url }) => {
 					// Handle malformed URL or other errors
 					throw error(400, 'Invalid redirect domain!');
 				}
-				redirect(302, redirectWithToken.toString());
+				redirect(301, redirectWithToken.toString());
 			}
 		}
 	}
